@@ -8,23 +8,28 @@ Vue.use(Vuex);
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
-    clickArticleData: "",
+    blockData: {},
+    searchInput:""
   },
   mutations: {
-    changeArticleData(state, params) {
-      state.clickArticleData = params;
-      window.sessionStorage.setItem("clickData", JSON.stringify(state.clickArticleData))
+    changeBlockData(state, params) {
+      state.blockData = params;
+      window.sessionStorage.setItem("blockData", JSON.stringify(state.blockData))
+    },
+    changeSearchInput(state, params) {
+      state.searchInput = params;
     }
   }
 });
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
