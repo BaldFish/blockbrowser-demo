@@ -2,7 +2,8 @@
   <div class="home_wrap">
     <div class="home">
       <div class="browser_log">
-        <img src="./images/logo.png" alt="车链" @click="turnHome">
+        <!--<img src="./images/logo.png" alt="车链" @click="turnHome">-->
+        <h1>白云区信用信息数据区块链存取证浏览器</h1>
       </div>
       <div class="search_box">
         <div class="search_select_box" @mouseleave="leaveHide">
@@ -159,6 +160,11 @@
       text-align: center;
       img{
         cursor pointer
+      }
+      h1{
+        margin-top 50px
+        color #1a9bff
+        font-size 32px
       }
     }
     .search_box {
