@@ -1,4 +1,4 @@
-# blockbrowser
+# blockbrowser-demo
 
 > A Vue.js project
 
