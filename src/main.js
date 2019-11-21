@@ -14,16 +14,29 @@ Vue.config.productionTip = false;
 const store = new Vuex.Store({
   state: {
     blockData: {},
-    searchInput:""
+    searchInput:"",
+    blocks:[],
+    // data:{},
+    // blockNumbers:"",
+    // partners:"",
+    // transactionCounts:"",
+    // saveCounts:"",
   },
   mutations: {
     changeBlockData(state, params) {
       state.blockData = params;
       window.sessionStorage.setItem("blockData", JSON.stringify(state.blockData))
     },
+    changeBlocks(state, params) {
+      state.blocks = params;
+      window.sessionStorage.setItem("blocks", JSON.stringify(state.blocks))
+    },
     changeSearchInput(state, params) {
       state.searchInput = params;
-    }
+    },
+    // changeData(state, params){
+    //   state.data = params;
+    // }
   }
 });
 new Vue({

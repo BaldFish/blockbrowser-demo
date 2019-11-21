@@ -9,7 +9,7 @@
           </li>
           <li>
             <span>最新出块时间：</span>
-            <span>{{difftime}}</span>
+            <span>{{diffTime}}</span>
           </li>
           <li>
             <span>合作方数量：</span>
@@ -36,7 +36,7 @@
             <li style="width:152px">交易笔数</li>
             <li style="width:168px">出块时间</li>
           </ul>
-          <ul class="info_tb" v-for="(item,index) in blocks" :class="index%2?'even':''" :key="item.number">
+          <ul class="info_tb" v-for="(item,index) in list" :class="index%2?'even':''" :key="item.number">
             <li style="width:164px">{{item.number}}</li>
             <li style="width:716px;cursor:pointer" @click="clickBlock($event)">{{item.hash}}</li>
             <li style="width:152px">{{item.transactions.length}}</li>
@@ -54,7 +54,7 @@
   import _ from "lodash";
   import {baseURL,baseContract,baseABI} from '@/common/js/public.js';
   const reqURL = `${baseURL}`;
-  const tradeURL = `${baseURL}/v1/txn`;
+  /*const tradeURL = `${baseURL}/v1/txn`;
   const contractAddress = `${baseContract}`;
   //实例化web3对象
   var Web3 = require("web3");
@@ -63,24 +63,25 @@
   //定义abi及调用合约
   var abi = baseABI;
   var MyContract = web3.eth.contract(abi);
-  var myContractInstance = MyContract.at(contractAddress);
+  var myContractInstance = MyContract.at(contractAddress);*/
   export default {
     name: "home",
     data() {
       return {
         blockNumbers: "",
-        difftime: "",
+        diffTime: "",
         partners: "",
         transactionCounts: "",
         saveCounts: "",
-        blocks: [],
+        //blocks: [],
         click_msg: "",
         blockData:{},
       };
     },
     mounted() {
+      this.getApi()
       // 获取区块数量
-      this.getBlockCounts();
+      /*this.getBlockCounts();
       //获取合作方数量
       this.getTradeCounts();
       //获取交易数量
@@ -128,7 +129,15 @@
             }
           }
         }
-      }, 15000);
+      }, 15000);*/
+    },
+    computed: {
+      list:function () {
+        return this.$store.state.blocks.concat().splice(0,15)
+      },
+      blocks: function () {
+        return this.$store.state.blocks
+      },
     },
     watch: {
       //获取最新出块时间
@@ -143,11 +152,26 @@
       }
     },
     methods: {
+      getApi(){
+        axios
+          .get(`http://127.0.0.1:50000/getBlockChainInfo`)
+          .then(res => {
+            this.blockNumbers=res.data.blockNumbers;
+            this.partners=res.data.partners;
+            this.transactionCounts=res.data.transactionCounts;
+            this.saveCounts=res.data.saveCounts;
+            //this.list=res.data.blocks.reverse().concat().splice(0,15);
+            this.getBlocks(res.data.blocks.reverse());
+          })
+          .catch(error => {
+            console.log(error)
+          });
+      },
       //获取最新出块时间
       getDiffTime() {
         var dateNew = new Date(this.blocks[0].timestamp);
         var dateOld = new Date(this.blocks[1].timestamp);
-        this.difftime = (dateNew - dateOld) / 1000 + "s";
+        this.diffTime = (dateNew - dateOld) / 1000 + "s";
       },
       //获取出块数量
       getBlockCounts(){
@@ -252,10 +276,13 @@
         this.blockData.searchBlock=this.searchBlock;
         this.blockData.searchBlockjp=this.searchBlockjp;
         this.getBlockData();
-        window.location.href="#/blockDetails"
+        this.$router.push('/blockDetails')
       },
       getBlockData(){
         this.$store.commit("changeBlockData",this.blockData);
+      },
+      getBlocks(params){
+        this.$store.commit("changeBlocks",params);
       },
     },
     components: {}

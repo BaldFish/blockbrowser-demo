@@ -10,13 +10,13 @@
             <li>时间戳：</li>
             <li>区块高度：</li>
             <li>区块哈希：</li>
-            <li>上一区块：</li>
+<!--            <li>上一区块：</li>-->
           </ul>
           <ul class="middle_right">
             <li>{{blockData.searchBlock.timestamp}}</li>
             <li>{{blockData.searchBlock.number}}</li>
             <li>{{blockData.searchBlock.hash}}</li>
-            <li>{{blockData.searchBlock.parentHash}}</li>
+<!--            <li>{{blockData.searchBlock.parentHash}}</li>-->
           </ul>
           <span class="right fr" @click="clickNext($event)"></span>
         </div>
@@ -32,19 +32,31 @@
 <script>
   import {baseURL,baseContract,baseABI} from '@/common/js/public.js';
   const reqURL = `${baseURL}`;
-  var Web3 = require("web3");
+  /*var Web3 = require("web3");
   var web3 = new Web3();
-  web3.setProvider(new web3.providers.HttpProvider(reqURL));
+  web3.setProvider(new web3.providers.HttpProvider(reqURL));*/
   import formatDate from "@/common/js/formatDate.js";
+  import _ from "lodash";
   export default {
     name: "blockDetails",
     data() {
       return {
-        blockData:{}
+        blockData:{
+          searchTime:"",
+          searchBlock:{
+            timestamp:"",
+            number:"",
+            hash:""
+          }
+        },
       }
+    },
+    created(){
     },
     beforeMount() {
       this.fetchBlockData()
+    },
+    mounted(){
     },
     methods: {
       //获取查询时间
@@ -91,47 +103,53 @@
       },
       //查看上一个区块信息
       clickPrevious() {
-        var nowNumber = this.blockData.searchBlock.number;
+        var nowNumber =Number(this.blockData.searchBlock.number) ;
         this.blockData.searchTime = this.getSearchTime();
-        if (nowNumber - 1 >= 0) {
-          var previousInfo = web3.eth.getBlock(nowNumber - 1);
+        if (nowNumber > 1) {
+          let that=this
+          var previousInfo = _.find(that.blocks, function (o) {
+            return o.number == (nowNumber-1);
+          });
           previousInfo.timestamp = formatDate(
-            new Date(previousInfo.timestamp * 1000),
+            new Date(previousInfo.timestamp),
             "yyyy-MM-dd hh:mm:ss"
           );
           this.blockData.searchBlock = previousInfo;
           this.blockData.searchBlockjp = this.syntaxHighlight(this.blockData.searchBlock);
-          this.getBlockData()
+          this.getBlockData(previousInfo)
         } else {
           this.blockData.searchTime = this.getSearchTime();
-          this.blockData.searchBlock = {"number": -1};
+          this.blockData.searchBlock = {"number": 0};
           this.blockData.searchBlockjp = "区块不存在!!!";
-          this.getBlockData()
+          this.getBlockData(this.blockData)
         }
       },
       //查看下一个区块信息
       clickNext() {
-        var nowNumber = this.blockData.searchBlock.number;
-        var lastNumber = web3.eth.blockNumber;
+        var nowNumber = Number(this.blockData.searchBlock.number) ;
+        var lastNumber = this.blocks.length;
         this.blockData.searchTime = this.getSearchTime();
-        if (nowNumber + 1 <= lastNumber) {
-          var nextInfo = web3.eth.getBlock(nowNumber + 1);
+        if (nowNumber  < lastNumber) {
+          let that=this
+          var nextInfo = _.find(that.blocks, function (o) {
+            return o.number == (nowNumber+1);
+          });
           nextInfo.timestamp = formatDate(
-            new Date(nextInfo.timestamp * 1000),
+            new Date(nextInfo.timestamp),
             "yyyy-MM-dd hh:mm:ss"
           );
           this.blockData.searchBlock = nextInfo;
           this.blockData.searchBlockjp = this.syntaxHighlight(this.blockData.searchBlock);
-          this.getBlockData()
+          this.getBlockData(nextInfo)
         } else {
           this.blockData.searchTime = this.getSearchTime();
           this.blockData.searchBlock = {"number": lastNumber + 1};
           this.blockData.searchBlockjp = "区块不存在!!!";
-          this.getBlockData()
+          this.getBlockData(this.blockData)
         }
       },
-      getBlockData(){
-        this.$store.commit("changeBlockData",this.blockData);
+      getBlockData(params){
+        this.$store.commit("changeBlockData",params);
       },
     },
     watch: {
@@ -140,6 +158,9 @@
       }
     },
     computed: {
+      blocks:function(){
+        return this.$store.state.blocks
+      },
       searchInput:function () {
         return this.$store.state.searchInput
       }
