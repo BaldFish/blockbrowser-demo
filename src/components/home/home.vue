@@ -63,7 +63,7 @@
     methods: {
       getApi() {
         axios
-          .get(`http://127.0.0.1:50000/getBlockChainInfo`)
+          .get(`http://192.168.3.167:50000/getBlockChainInfo`)
           .then(res => {
             //this.getData(res.data);
             this.getBlocks(res.data.blocks.reverse());
@@ -203,21 +203,21 @@
     .home {
       width: 1224px;
       margin: 0 auto;
-      
+
       .browser_log {
         text-align: center;
-        
+
         img {
           cursor pointer
         }
-        
+
         h1 {
           margin-top 50px
           color #1a9bff
           font-size 32px
         }
       }
-      
+
       .search_box {
         box-sizing: border-box;
         text-align: center;
@@ -225,7 +225,7 @@
         padding-bottom: 40px;
         font-size: 0;
         position: relative;
-        
+
         .search_select_box, .search_ipt, .btn {
           outline: none;
           border: none;
@@ -239,10 +239,10 @@
           color: #222222;
           margin: 0 4px;
         }
-        
+
         .search_select_box {
           border-radius: 25px 0px 0px 0px;
-          
+
           .search_select {
             margin: 0px;
             width: 126px;
@@ -257,7 +257,7 @@
             background-position: top 17px right 15px;
             background-repeat: no-repeat;
           }
-          
+
           .showdown {
             margin: 0;
             width: 126px;
@@ -272,7 +272,7 @@
             background-position: top 17px right 15px;
             background-repeat: no-repeat;
           }
-          
+
           .search_type {
             position: absolute;
             top: 93px;
@@ -289,17 +289,17 @@
             margin-left: 169px;
             color: #222222;
             visibility: hidden
-            
+
             li {
               cursor: pointer;
               padding-left: 50px;
             }
-            
+
             li:hover {
               color: #008ffe;
             }
           }
-          
+
           .showv {
             position: absolute;
             top: 93px;
@@ -313,22 +313,22 @@
             text-align: left;
             padding-top: 10px;
             padding-bottom: 10px;
-            
+
             margin-left: 169px;
             color: #222222;
             visibility: visible
-            
+
             li {
               cursor: pointer;
               padding-left: 50px;
             }
-            
+
             li:hover {
               color: #008ffe;
             }
           }
         }
-        
+
         .search_ipt {
           width: 604px;
           line-height: 50px;
@@ -336,7 +336,7 @@
           padding-right: 15px;
           font-size: 14px;
         }
-        
+
         .btn {
           width: 90px;
           border-radius: 0px 0px 25px 0px;
@@ -346,7 +346,7 @@
           background-repeat: no-repeat;
         }
       }
-      
+
     }
   }
 </style>

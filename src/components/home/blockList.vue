@@ -154,7 +154,7 @@
     methods: {
       getApi(){
         axios
-          .get(`http://127.0.0.1:50000/getBlockChainInfo`)
+          .get(`http://192.168.3.167:50000/getBlockChainInfo`)
           .then(res => {
             this.blockNumbers=res.data.blockNumbers;
             this.partners=res.data.partners;
@@ -299,10 +299,10 @@
       margin-left: auto;
       margin-right: auto;
       background-color: rgba(0, 143, 254, 0.73);
-      
+
       .count {
         display: flex;
-        
+
         li {
           display: inline-block;
           flex: 1;
@@ -317,13 +317,13 @@
         }
       }
     }
-    
+
     .info_box {
       margin-top: 0px;
       margin-bottom: 25px;
       margin-left: auto;
       margin-right: auto;
-      
+
       .info_title {
         margin-left: 12px;
         margin-bottom: 2px;
@@ -334,38 +334,38 @@
         background-color: #0d50f9;
         border-radius: 15px 15px 0px 0px;
       }
-      
+
       .info {
         width: 1200px;
         margin: 0 auto;
         background-color: rgba(255, 255, 255, 0.8);
         box-shadow: 0px 3px 26px 2px rgba(255, 255, 255, 0.31);
         border-radius: 0px 0px 25px 0px;
-        
+
         ul {
           font-size: 0;
           margin: 0 auto;
           box-sizing: border-box;
-          
+
           li {
             box-sizing: border-box;
             display: inline-block;
             font-size: 14px;
           }
         }
-        
+
         .info_th {
           text-align: center;
           background-color: #a0a0a0;
           height: 30px;
           line-height: 30px;
         }
-        
+
         .info_tb {
           height: 36px;
           line-height: 36px;
           color: #222222;
-          
+
           li {
             border-right: 1px solid #a0a0a0;
             padding-left: 12px;
@@ -373,16 +373,16 @@
             white-space: nowrap;
             text-overflow: ellipsis;
           }
-          
+
           li:last-child {
             border-right: none;
           }
-          
+
           .apply {
             padding-left: 0px;
             text-align: center;
             line-height: normal;
-            
+
             a {
               display: inline-block;
               padding-top: 8px;
@@ -392,27 +392,27 @@
         .even {
           background-color: #ffffff;
         }
-        
+
         .even:last-child {
           border-radius: 0px 0px 25px 0px;
         }
-        
+
         .info_tb:last-child {
           li {
             border-bottom: none;
           }
         }
-        
+
         .info_tb:hover {
           background-color: #00e0dd;
           color: #ffffff;
           box-shadow: 0px 3px 7px 0px rgba(0, 198, 255, 0.39);
-          
+
           li {
             border: none;
           }
         }
-        
+
         .info_tb:last-child:hover {
           border-radius: 0px 0px 25px 0px;
         }
