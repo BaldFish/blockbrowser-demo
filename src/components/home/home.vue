@@ -63,7 +63,7 @@
     methods: {
       getApi() {
         axios
-          .get(`http://192.168.3.167:50000/getBlockChainInfo`)
+          .get(`${baseURL}/getBlockChainInfo`)
           .then(res => {
             //this.getData(res.data);
             this.getBlocks(res.data.blocks.reverse());

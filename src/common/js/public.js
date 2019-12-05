@@ -1,4 +1,4 @@
-var baseURL="http://wallet-api-test.launchain.org:50000";
+var baseURL="http://192.168.3.167:50000";
 var baseContract = "0x3f01a034865808e902Cf0DB1ADe4D850C523B234";
 var baseABI= [
   {

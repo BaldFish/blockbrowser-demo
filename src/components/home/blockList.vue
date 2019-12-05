@@ -53,7 +53,7 @@
   import axios from "axios";
   import _ from "lodash";
   import {baseURL,baseContract,baseABI} from '@/common/js/public.js';
-  const reqURL = `${baseURL}`;
+  //const reqURL = `${baseURL}`;
   /*const tradeURL = `${baseURL}/v1/txn`;
   const contractAddress = `${baseContract}`;
   //实例化web3对象
@@ -154,7 +154,7 @@
     methods: {
       getApi(){
         axios
-          .get(`http://192.168.3.167:50000/getBlockChainInfo`)
+          .get(`${baseURL}/getBlockChainInfo`)
           .then(res => {
             this.blockNumbers=res.data.blockNumbers;
             this.partners=res.data.partners;
